@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8">
+    <title>calendar</title>
+    <link href="styles.css" rel="stylesheet"/>
+    <script type="https://unpkg.com/vue"></script>
+  </head>
+
+  <body>
+
+    <div id='app'>
+      <div class="calendar-layout">
+        <calendar
+          :day-key='selectedDisplayOption'>
+        </calendar>
+      </div>
+      <div class='options'>
+        <div class='option' v-for='option in displayOptions'>
+          <input type='radio' :id='option.id' :value='option.value' v-model='selectedDisplayOption' />
+          <label :for='option.id'>{{ option.label }}</label>
+        </div>
+      </div>
+    </div>
+
+    <template id='calendar'>
+      <div class='calendar'>
+        <div class='header'>
+          <a class='arrow' @click='movePreviousYear'>&laquo;</a>
+          <a class='arrow' @click='movePreviousMonth'>&lsaquo;</a>
+          <span class='title' @click='moveThisMonth'>
+            {{ header.label }}
+          </span>
+          <a class='arrow' @click='moveNextMonth'>&rsaquo;</a>
+          <a class='arrow' @click='moveNextYear'>&raquo;</a>
+        </div>
+        <div class='weekdays'>
+          <div class='weekday' v-for='weekday in weekdays'>
+            {{ weekday.label_3 }}
+          </div>
+        </div>
+        <div class='week' v-for='week in weeks'>
+          <div
+            class='day'
+            :class='{ today: day.isToday, "not-in-month": !day.inMonth }'
+            v-for='day in week'>
+            {{ day[dayKey] }}
+          </div>
+        </div>
+      </div>
+    </template>
+    <script src="index.js">
+    </script>
+  </body>
+</html>
